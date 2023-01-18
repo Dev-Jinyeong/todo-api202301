@@ -38,7 +38,9 @@ public class TodoService {
     }
 
     // 할 일 등록
-    public TodoListResponseDTO create(final TodoCreateRequestDTO createRequestDTO) {
+    public TodoListResponseDTO create(final TodoCreateRequestDTO createRequestDTO)
+        throws RuntimeException
+    {
 
         todoRepository.save(createRequestDTO.toEntity());
 
