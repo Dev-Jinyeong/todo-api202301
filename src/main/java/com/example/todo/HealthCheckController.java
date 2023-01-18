@@ -14,6 +14,7 @@ public class HealthCheckController {
         log.info("server is running...");
         return ResponseEntity
                 .ok()
-                .body("server is running...");
+                .body("server is running...!!");
+
     }
 }
