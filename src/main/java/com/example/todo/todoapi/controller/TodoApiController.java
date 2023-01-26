@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/todos")
 // CORS 허용 요청
-@CrossOrigin
+@CrossOrigin(origins = "*" )
 public class TodoApiController {
 
     private final TodoService todoService;
