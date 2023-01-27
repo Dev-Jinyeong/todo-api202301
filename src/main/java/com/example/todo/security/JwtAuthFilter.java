@@ -56,6 +56,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.setContext(securityContext);
             }
         } catch (Exception e) {
+//            e.printStackTrace();
             log.error("인증되지 않은 사용자입니다.");
         }
 

@@ -35,6 +35,12 @@ public class TodoEntity {
 
     // 회원과 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    // insertable = false, updatable = false
+    // 연관관계 설정은 했지만 INSERT, UPDATE시에는 이 객체를 활용하지 않겠다.
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private UserEntity user;
+
+    // 할 일 추가, 수정 시 사용할 외래키
+    private String userId;
+
 }
