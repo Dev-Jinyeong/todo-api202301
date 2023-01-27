@@ -1,25 +1,31 @@
 package com.example.todo.todoapi.repository;
 
 import com.example.todo.todoapi.entity.TodoEntity;
+import com.example.todo.userapi.entity.UserEntity;
+import com.example.todo.userapi.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Commit // test실행후 커밋
+//@Commit // test실행후 커밋
 class TodoRepositoryTest {
 
     @Autowired
     TodoRepository todoRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    @BeforeEach
+    /*@BeforeEach
     void insertTest() {
         TodoEntity todo1 = TodoEntity.builder().title("저녁 장보기").build();
         TodoEntity todo2 = TodoEntity.builder().title("책 읽기").build();
@@ -28,7 +34,7 @@ class TodoRepositoryTest {
         todoRepository.save(todo1);
         todoRepository.save(todo2);
         todoRepository.save(todo3);
-    }
+    }*/
 
     @Test
     @DisplayName("할 일 목록을 조회하면 리스트의 사이즈가 3이어야 한다.")
@@ -39,5 +45,36 @@ class TodoRepositoryTest {
         //then
         assertEquals(3, list.size());
     }
+
+    @Test
+    @DisplayName("회원의 할 일을 등록해야 한다.")
+    void saveTodoWithUserTest() {
+        UserEntity user = userRepository.findByEmail("asd00@naver.com");
+
+        // given
+        TodoEntity todo = TodoEntity.builder()
+                .title("추장구운~!")
+                .user(user)
+                .build();
+        // when
+        TodoEntity saveTodo = todoRepository.save(todo);
+        // then
+        assertEquals(saveTodo.getUser().getId(), user.getId());
+    }
+
+    @Test
+    @DisplayName("특정 회원의 할일 목록을 조회해야 한다.")
+    @Transactional
+    void findByUserTest() {
+        //given
+        String userId = "402880b685ebe61b0185ebe637ff0000";
+        //when
+        List<TodoEntity> todos = todoRepository.findByUserId(userId);
+
+        //then
+        todos.forEach(System.out::println);
+        assertEquals(3, todos.size());
+    }
+
 
 }
