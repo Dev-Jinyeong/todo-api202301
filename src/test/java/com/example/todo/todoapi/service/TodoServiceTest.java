@@ -28,9 +28,9 @@ class TodoServiceTest {
         TodoCreateRequestDTO dto2 = TodoCreateRequestDTO.builder().title("식물 물주기").build();
         TodoCreateRequestDTO dto3 = TodoCreateRequestDTO.builder().title("음악감상하기").build();
 
-        todoService.create(dto1);
-        todoService.create(dto2);
-        todoService.create(dto3);
+//        todoService.create(dto1);
+//        todoService.create(dto2);
+//        todoService.create(dto3);
 
     }
 
